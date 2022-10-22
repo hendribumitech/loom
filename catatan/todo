@@ -1,9 +1,8 @@
 Base Module 
-- create master vehicle_group (done)
-- create master city (done)
-- create master trip (done)
-- create master vendor_expedisi (done)
-- create master vehicle (done)
-- create master expedisi_trip
-- create master product
-- create 
+- create uoms
+- create machines
+- create machine_users
+Manufacture Module
+- create machine_results
+- create machine_conditions
+- create machine_productivity

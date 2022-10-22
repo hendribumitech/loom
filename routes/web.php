@@ -32,7 +32,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('permissions', Base\PermissionController::class, ['as' => 'base']);
         Route::resource('users', Base\UserController::class, ['as' => 'base']);
         Route::resource('menus', Base\MenusController::class, ['as' => 'base']);        
+
+        Route::resource('machines', Base\MachineController::class, ["as" => 'base']);
+        Route::resource('uoms', Base\UomController::class, ["as" => 'base']);
+        Route::resource('shiftments', Base\ShiftmentController::class, ["as" => 'base']);
     });
+
+    Route::group(['prefix' => 'manufacture'], function () {
+        Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);
+        Route::resource('machineConditions', Manufacture\MachineConditionController::class, ["as" => 'manufacture']);
+    });
+    
 
     Route::get('/selectAjax', [App\Http\Controllers\SelectAjaxController::class, 'index'])->name('selectAjax');
 //    Route::get('/events', [App\Http\Controllers\EventsController::class, 'index'])->name('events.index');
@@ -52,10 +62,5 @@ Route::post(
 Route::group(['prefix' => 'artisan'], function () {
     Route::get('clear_cache', function(){
         Artisan::call('cache:clear');
-    });
-});
-
-
-Route::group(['prefix' => 'base'], function () {
-    Route::resource('customers', Base\CustomersController::class, ["as" => 'base']);
+    });     
 });
