@@ -23,7 +23,10 @@ class ShiftmentFactory extends Factory
     {
         return [
             'code' => $this->faker->text($this->faker->numberBetween(5, 10)),
-        'name' => $this->faker->text($this->faker->numberBetween(5, 50))
+        'name' => $this->faker->text($this->faker->numberBetween(5, 50)),
+        'start_hour' => $this->faker->date('H:i:s'),
+        'end_hour' => $this->faker->date('H:i:s'),
+        'overday' => $this->faker->boolean
         ];
     }
 }

@@ -28,11 +28,12 @@ abstract class BaseRepository
      */
     protected $lookupColumnSelect = ['id' => 'id', 'text' => 'name'];
 
+    protected $filter = [];
     /**
      * @throws \Exception
      */
     public function __construct()
-    {        
+    {
         $this->makeModel();
     }
 
@@ -83,6 +84,10 @@ abstract class BaseRepository
         $query = $this->allQuery();
         if (!empty($search)) {
             $query->search($search['keyword'], $search['column']);
+        }
+
+        if($this->getFilter()){
+            $query->where($this->getFilter());
         }
 
         return $query->simplePaginate($perPage, $columns, 'page', $currentPage);
@@ -147,11 +152,13 @@ abstract class BaseRepository
      */
     public function create($input)
     {
-        $model = $this->model->newInstance($input);
-
-        $model->save();
-
-        return $model;
+        try {
+            $model = $this->model->newInstance($input);
+            $model->save();
+            return $model;
+        } catch (\Exception $e) {
+            return $e;
+        }        
     }
 
     /**
@@ -180,15 +187,15 @@ abstract class BaseRepository
      */
     public function update($input, $id)
     {
-        $query = $this->model->newQuery();
-
-        $model = $query->findOrFail($id);
-
-        $model->fill($input);
-
-        $model->save();
-
-        return $model;
+        try{
+            $query = $this->model->newQuery();
+            $model = $query->findOrFail($id);
+            $model->fill($input);
+            $model->save();
+            return $model;
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -200,11 +207,13 @@ abstract class BaseRepository
      */
     public function delete($id)
     {
-        $query = $this->model->newQuery();
-
-        $model = $query->findOrFail($id);
-
-        return $model->delete();
+        try{
+            $query = $this->model->newQuery();
+            $model = $query->findOrFail($id);
+            return $model->delete();
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 
     /**
@@ -280,6 +289,26 @@ abstract class BaseRepository
                 $this->model->with($relation);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of filter
+     */ 
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * Set the value of filter
+     *
+     * @return  self
+     */ 
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
 
         return $this;
     }

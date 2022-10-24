@@ -35,6 +35,9 @@ class MachineDataTable extends DataTable
                 $dataTable->filterColumn($column, new $operator($columnSearch));                
             }
         }
+        $dataTable->editColumn('capacity', function($item){
+            return localNumberFormat($item->capacity).' ' .$item->capacityUom->name.' / '.$item->periodUom->name;
+        });
         return $dataTable->addColumn('action', 'base.machines.datatables_actions');
     }
 
@@ -46,7 +49,7 @@ class MachineDataTable extends DataTable
      */
     public function query(Machine $model)
     {
-        return $model->select([$model->getTable().'.*'])->newQuery();
+        return $model->select([$model->getTable().'.*'])->with(['capacityUom', 'periodUom'])->newQuery();
     }
 
     /**
@@ -118,10 +121,9 @@ class MachineDataTable extends DataTable
             'code' => new Column(['title' => __('models/machines.fields.code'),'name' => 'code', 'data' => 'code', 'searchable' => true, 'elmsearch' => 'text']),
             'name' => new Column(['title' => __('models/machines.fields.name'),'name' => 'name', 'data' => 'name', 'searchable' => true, 'elmsearch' => 'text']),
             'capacity' => new Column(['title' => __('models/machines.fields.capacity'),'name' => 'capacity', 'data' => 'capacity', 'searchable' => true, 'elmsearch' => 'text']),
-            'capacity_uom_id' => new Column(['title' => __('models/machines.fields.capacity_uom_id'),'name' => 'capacity_uom_id', 'data' => 'capacity_uom_id', 'searchable' => true, 'elmsearch' => 'text']),
-            'period_uom_id' => new Column(['title' => __('models/machines.fields.period_uom_id'),'name' => 'period_uom_id', 'data' => 'period_uom_id', 'searchable' => true, 'elmsearch' => 'text']),
-            'description' => new Column(['title' => __('models/machines.fields.description'),'name' => 'description', 'data' => 'description', 'searchable' => true, 'elmsearch' => 'text']),
-            'types' => new Column(['title' => __('models/machines.fields.types'),'name' => 'types', 'data' => 'types', 'searchable' => true, 'elmsearch' => 'text'])
+            // 'capacity_uom_id' => new Column(['title' => __('models/machines.fields.capacity_uom_id'),'name' => 'capacity_uom_id', 'data' => 'capacity_uom.name', 'searchable' => true, 'elmsearch' => 'text']),
+            // 'period_uom_id' => new Column(['title' => __('models/machines.fields.period_uom_id'),'name' => 'period_uom_id', 'data' => 'period_uom.name', 'searchable' => true, 'elmsearch' => 'text']),
+            'description' => new Column(['title' => __('models/machines.fields.description'),'name' => 'description', 'data' => 'description', 'searchable' => true, 'elmsearch' => 'text'])
         ];
     }
 

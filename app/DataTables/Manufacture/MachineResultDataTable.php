@@ -116,6 +116,8 @@ class MachineResultDataTable extends DataTable
     {
         return [
             'machine_id' => new Column(['title' => __('models/machineResults.fields.machine_id'),'name' => 'machine_id', 'data' => 'machine_id', 'searchable' => true, 'elmsearch' => 'text']),
+            'shiftment_id' => new Column(['title' => __('models/machineResults.fields.shiftment_id'),'name' => 'shiftment_id', 'data' => 'shiftment_id', 'searchable' => true, 'elmsearch' => 'text']),
+            'work_date' => new Column(['title' => __('models/machineResults.fields.work_date'),'name' => 'work_date', 'data' => 'work_date', 'searchable' => true, 'elmsearch' => 'text']),
             'amount' => new Column(['title' => __('models/machineResults.fields.amount'),'name' => 'amount', 'data' => 'amount', 'searchable' => true, 'elmsearch' => 'text']),
             'uom_id' => new Column(['title' => __('models/machineResults.fields.uom_id'),'name' => 'uom_id', 'data' => 'uom_id', 'searchable' => true, 'elmsearch' => 'text'])
         ];

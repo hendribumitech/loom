@@ -73,6 +73,14 @@
     },
     {
         "type": "relation",
+        "relation": "1tm,MachineProductivity,uom_id"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,MachineProductivity,capacity_uom_id"
+    },
+    {
+        "type": "relation",
         "relation": "1tm,MachineResult,uom_id"
     },
     {

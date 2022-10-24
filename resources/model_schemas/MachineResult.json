@@ -24,6 +24,30 @@
         "inView": true
     },
     {
+        "name": "shiftment_id",
+        "dbType": "bigInteger,false,true",
+        "htmlType": null,
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "work_date",
+        "dbType": "date",
+        "htmlType": "date",
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
         "name": "amount",
         "dbType": "decimal,15,2",
         "htmlType": null,
@@ -54,5 +78,9 @@
     {
         "type": "relation",
         "relation": "mt1,Machine,machine_id"
+    },
+    {
+        "type": "relation",
+        "relation": "mt1,Shiftment,shiftment_id"
     }
 ]

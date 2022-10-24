@@ -109,6 +109,22 @@ class Uom extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
+    public function machineProductivities()
+    {
+        return $this->hasMany(\App\Models\Base\MachineProductivity::class, 'uom_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function machineProductivity1s()
+    {
+        return $this->hasMany(\App\Models\Base\MachineProductivity::class, 'capacity_uom_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
     public function machineResults()
     {
         return $this->hasMany(\App\Models\Base\MachineResult::class, 'uom_id');
@@ -125,7 +141,7 @@ class Uom extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function machine1s()
+    public function machine2s()
     {
         return $this->hasMany(\App\Models\Base\Machine::class, 'period_uom_id');
     }

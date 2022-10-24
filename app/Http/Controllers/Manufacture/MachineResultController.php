@@ -7,8 +7,9 @@ use App\Http\Requests\Manufacture;
 use App\Http\Requests\Manufacture\CreateMachineResultRequest;
 use App\Http\Requests\Manufacture\UpdateMachineResultRequest;
 use App\Repositories\Manufacture\MachineResultRepository;
-use App\Repositories\Manufacture\UomRepository;
-use App\Repositories\Manufacture\MachineRepository;
+use App\Repositories\Base\UomRepository;
+use App\Repositories\Base\MachineRepository;
+use App\Repositories\Base\ShiftmentRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -172,9 +173,13 @@ class MachineResultController extends AppBaseController
     private function getOptionItems(){        
         $uom = new UomRepository(app());
         $machine = new MachineRepository(app());
+        $machineData = $machine->all([], null, null, ['id', 'capacity_uom_id', 'code'])->keyBy('id');
+        $shiftment = new ShiftmentRepository(app());
         return [
             'uomItems' => ['' => __('crud.option.uom_placeholder')] + $uom->pluck(),
-            'machineItems' => ['' => __('crud.option.machine_placeholder')] + $machine->pluck()            
+            'machineItems' => ['' => __('crud.option.machine_placeholder')] + $machine->pluck(),
+            'shiftmentItems' => ['' => __('crud.option.shiftment_placeholder')] + $shiftment->pluck(),
+            'machineData' => $machineData->toArray()
         ];
     }
 }

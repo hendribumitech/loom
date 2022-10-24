@@ -39,8 +39,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'manufacture'], function () {
-        Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);
         Route::resource('machineConditions', Manufacture\MachineConditionController::class, ["as" => 'manufacture']);
+        Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);
+        Route::resource('machineProductivities', Manufacture\MachineProductivityController::class, ["as" => 'manufacture']);
     });
     
 
@@ -63,4 +64,19 @@ Route::group(['prefix' => 'artisan'], function () {
     Route::get('clear_cache', function(){
         Artisan::call('cache:clear');
     });     
+});
+
+
+Route::group(['prefix' => 'manufacture'], function () {
+    Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);
+});
+
+
+Route::group(['prefix' => 'manufacture'], function () {
+    Route::resource('machineConditions', Manufacture\MachineConditionController::class, ["as" => 'manufacture']);
+});
+
+
+Route::group(['prefix' => 'manufacture'], function () {
+    Route::resource('machineProductivities', Manufacture\MachineProductivityController::class, ["as" => 'manufacture']);
 });

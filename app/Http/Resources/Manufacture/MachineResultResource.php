@@ -17,6 +17,8 @@ class MachineResultResource extends JsonResource
         return [
             'id' => $this->id,
             'machine_id' => $this->machine_id,
+            'shiftment_id' => $this->shiftment_id,
+            'work_date' => $this->work_date,
             'amount' => $this->amount,
             'uom_id' => $this->uom_id
         ];

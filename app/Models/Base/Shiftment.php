@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @SWG\Definition(
  *      definition="Shiftment",
- *      required={"code", "name"},
+ *      required={"code", "name", "start_hour", "end_hour"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -73,7 +73,10 @@ class Shiftment extends Model
 
     public $fillable = [
         'code',
-        'name'
+        'name',
+        'start_hour',
+        'end_hour',
+        'overday'
     ];
 
     /**
@@ -84,7 +87,8 @@ class Shiftment extends Model
     protected $casts = [
         'id' => 'integer',
         'code' => 'string',
-        'name' => 'string'
+        'name' => 'string',
+        'overday' => 'boolean'
     ];
 
     /**
@@ -94,7 +98,10 @@ class Shiftment extends Model
      */
     public static $rules = [
         'code' => 'required|string|max:10',
-        'name' => 'required|string|max:50'
+        'name' => 'required|string|max:50',
+        'start_hour' => 'required',
+        'end_hour' => 'required',
+        'overday' => 'nullable|boolean'
     ];
 
     /**
@@ -103,5 +110,21 @@ class Shiftment extends Model
     public function machineConditions()
     {
         return $this->hasMany(\App\Models\Base\MachineCondition::class, 'shiftment_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function machineProductivities()
+    {
+        return $this->hasMany(\App\Models\Base\MachineProductivity::class, 'shiftment_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
+    public function machineResults()
+    {
+        return $this->hasMany(\App\Models\Base\MachineResult::class, 'shiftment_id');
     }
 }

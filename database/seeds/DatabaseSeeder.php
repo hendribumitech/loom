@@ -1,5 +1,6 @@
 <?php
 
+use Database\Seeders\ShiftmentSeed;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,5 +21,9 @@ class DatabaseSeeder extends Seeder
         $this->call(MenuPermissionsTableSeeder::class);
 
         \App\Models\Base\MenusTree::fixTree();        
+
+        $this->call(ShiftmentSeed::class);
+        $this->call(UomSeed::class);
     }
+    
 }

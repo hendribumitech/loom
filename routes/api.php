@@ -45,3 +45,8 @@ Route::group(['prefix' => 'manufacture'], function () {
 Route::group(['prefix' => 'manufacture'], function () {
     Route::resource('machine_conditions', App\Http\Controllers\API\Manufacture\Manufacture\MachineConditionAPIController::class);
 });
+
+
+Route::group(['prefix' => 'manufacture'], function () {
+    Route::resource('machine_productivities', App\Http\Controllers\API\Manufacture\Manufacture\MachineProductivityAPIController::class);
+});

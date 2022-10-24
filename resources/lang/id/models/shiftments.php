@@ -8,5 +8,8 @@ return array (
     'id' => 'Id',
     'code' => 'Code',
     'name' => 'Name',
+    'start_hour' => 'Start Hour',
+    'end_hour' => 'End Hour',
+    'overday' => 'Overday',
   ),
 );

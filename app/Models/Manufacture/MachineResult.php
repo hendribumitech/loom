@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @SWG\Definition(
  *      definition="MachineResult",
- *      required={"machine_id", "amount", "uom_id"},
+ *      required={"machine_id", "shiftment_id", "work_date", "amount", "uom_id"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -21,6 +21,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          description="machine_id",
  *          type="integer",
  *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="shiftment_id",
+ *          description="shiftment_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="work_date",
+ *          description="work_date",
+ *          type="string",
+ *          format="date"
  *      ),
  *      @SWG\Property(
  *          property="amount",
@@ -53,6 +65,8 @@ class MachineResult extends Model
 
     public $fillable = [
         'machine_id',
+        'shiftment_id',
+        'work_date',
         'amount',
         'uom_id'
     ];
@@ -65,6 +79,8 @@ class MachineResult extends Model
     protected $casts = [
         'id' => 'integer',
         'machine_id' => 'integer',
+        'shiftment_id' => 'integer',
+        'work_date' => 'date',
         'amount' => 'decimal:2',
         'uom_id' => 'integer'
     ];
@@ -76,6 +92,8 @@ class MachineResult extends Model
      */
     public static $rules = [
         'machine_id' => 'required',
+        'shiftment_id' => 'required',
+        'work_date' => 'required',
         'amount' => 'required|numeric',
         'uom_id' => 'required'
     ];
@@ -85,7 +103,7 @@ class MachineResult extends Model
      **/
     public function uom()
     {
-        return $this->belongsTo(\App\Models\Manufacture\Uom::class, 'uom_id');
+        return $this->belongsTo(\App\Models\Base\Uom::class, 'uom_id');
     }
 
     /**
@@ -93,6 +111,22 @@ class MachineResult extends Model
      **/
     public function machine()
     {
-        return $this->belongsTo(\App\Models\Manufacture\Machine::class, 'machine_id');
+        return $this->belongsTo(\App\Models\Base\Machine::class, 'machine_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function shiftment()
+    {
+        return $this->belongsTo(\App\Models\Base\Shiftment::class, 'shiftment_id');
+    }
+
+    public function getWorkDateAttribute($value){
+        return localFormatDate($value);
+    }
+
+    public function getAmountAttribute($value){
+        return localNumberFormat($value, 2);
     }
 }

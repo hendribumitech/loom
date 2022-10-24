@@ -1,8 +1,5 @@
 {!! Form::open(['route' => ['manufacture.machineConditions.destroy', $id], 'method' => 'delete']) !!}
-<div class='btn-group'>
-    <a href="{{ route('manufacture.machineConditions.show', $id) }}" class='btn btn-ghost-success'>
-       <i class="fa fa-eye"></i>
-    </a>
+<div class='btn-group'>    
     <a href="{{ route('manufacture.machineConditions.edit', $id) }}" class='btn btn-ghost-info'>
        <i class="fa fa-edit"></i>
     </a>

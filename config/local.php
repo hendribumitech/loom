@@ -22,6 +22,7 @@ return [
     ],    
     'daterange' => ['singleDatePicker' => false, 'locale' => ['format' => 'DD MMM YYYY']],
     'datetime' => ['timePicker' => true, 'timePicker24Hour' => true, 'singleDatePicker' => true, 'locale' => ['format' => 'DD MMM YYYY HH:mm:ss']],
+    'datetime_range' => ['timePicker' => true, 'timePicker24Hour' => true, 'singleDatePicker' => false, 'locale' => ['format' => 'DD MMM YYYY HH:mm:ss']],
     'daterange_search' => ['singleDatePicker' => false, 'locale' => ['format' => 'DD MMM YYYY'], 'autoApply' => false, 'autoUpdateInput' => false ],
     'datesingle_empty' => ['singleDatePicker' => true, 'locale' => ['format' => 'DD MMM YYYY'], 'autoApply' => false, 'autoUpdateInput' => false ],
     'time' => ['timePicker' => true,'locale' => ['format' => 'HH:mm']],

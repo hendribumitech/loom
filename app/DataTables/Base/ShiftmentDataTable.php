@@ -116,7 +116,10 @@ class ShiftmentDataTable extends DataTable
     {
         return [
             'code' => new Column(['title' => __('models/shiftments.fields.code'),'name' => 'code', 'data' => 'code', 'searchable' => true, 'elmsearch' => 'text']),
-            'name' => new Column(['title' => __('models/shiftments.fields.name'),'name' => 'name', 'data' => 'name', 'searchable' => true, 'elmsearch' => 'text'])
+            'name' => new Column(['title' => __('models/shiftments.fields.name'),'name' => 'name', 'data' => 'name', 'searchable' => true, 'elmsearch' => 'text']),
+            'start_hour' => new Column(['title' => __('models/shiftments.fields.start_hour'),'name' => 'start_hour', 'data' => 'start_hour', 'searchable' => true, 'elmsearch' => 'text']),
+            'end_hour' => new Column(['title' => __('models/shiftments.fields.end_hour'),'name' => 'end_hour', 'data' => 'end_hour', 'searchable' => true, 'elmsearch' => 'text']),
+            'overday' => new Column(['title' => __('models/shiftments.fields.overday'),'name' => 'overday', 'data' => 'overday', 'searchable' => true, 'elmsearch' => 'text'])
         ];
     }
 

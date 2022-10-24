@@ -168,11 +168,12 @@ class MachineController extends AppBaseController
      *
      * @return Response
      */
-    private function getOptionItems(){        
-        $uom = new UomRepository(app());        
+    private function getOptionItems(){                
+        $uom = new UomRepository(app());
+        $uomItem = $uom->all()->groupBy('category');
         return [
-            'capacityUomItems' => ['' => __('crud.option.uom_placeholder')] + $uom->pluck(),
-            'periodUomItems' => ['' => __('crud.option.uom_placeholder')] + $uom->pluck()            
+            'capacityUomItems' => ['' => __('crud.option.uom_placeholder')] + $uomItem['weight']->pluck('name', 'id')->toArray(),
+            'periodUomItems' => ['' => __('crud.option.uom_placeholder')] + $uomItem['duration']->pluck('name', 'id')->toArray()            
         ];
     }
 }
