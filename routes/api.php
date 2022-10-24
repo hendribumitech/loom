@@ -50,3 +50,18 @@ Route::group(['prefix' => 'manufacture'], function () {
 Route::group(['prefix' => 'manufacture'], function () {
     Route::resource('machine_productivities', App\Http\Controllers\API\Manufacture\Manufacture\MachineProductivityAPIController::class);
 });
+
+
+Route::group(['prefix' => 'base'], function () {
+    Route::resource('products', App\Http\Controllers\API\Base\Base\ProductAPIController::class);
+});
+
+
+Route::group(['prefix' => 'base'], function () {
+    Route::resource('category_offs', App\Http\Controllers\API\Base\Base\CategoryOffAPIController::class);
+});
+
+
+Route::group(['prefix' => 'base'], function () {
+    Route::resource('machine_capacities', App\Http\Controllers\API\Base\Base\MachineCapacityAPIController::class);
+});

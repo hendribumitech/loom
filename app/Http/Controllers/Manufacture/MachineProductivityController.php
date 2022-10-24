@@ -171,10 +171,10 @@ class MachineProductivityController extends AppBaseController
      * @return Response
      */
     private function getOptionItems(){        
-        $uom = new UomRepository(app());
-        $machine = new MachineRepository(app());
-        $shiftment = new ShiftmentRepository(app());
-        $uom = new UomRepository(app());
+        $uom = new UomRepository();
+        $machine = new MachineRepository();
+        $shiftment = new ShiftmentRepository();
+        $uom = new UomRepository();
         return [
             'uomItems' => ['' => __('crud.option.uom_placeholder')] + $uom->pluck(),
             'machineItems' => ['' => __('crud.option.machine_placeholder')] + $machine->pluck(),

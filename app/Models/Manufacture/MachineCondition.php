@@ -70,6 +70,7 @@ class MachineCondition extends Model
         'start',
         'end',
         'amount_minutes',
+        'category_off_id',
         'description'
     ];
 
@@ -86,6 +87,7 @@ class MachineCondition extends Model
         'start' => 'datetime',
         'end' => 'datetime',
         'amount_minutes' => 'decimal:2',
+        'category_off_id' => 'integer',
         'description' => 'string'
     ];
 
@@ -118,6 +120,14 @@ class MachineCondition extends Model
     public function shiftment()
     {
         return $this->belongsTo(\App\Models\Base\Shiftment::class, 'shiftment_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\Base\CategoryOff::class, 'category_off_id');
     }
 
     public function getWorkDateAttribute($value){

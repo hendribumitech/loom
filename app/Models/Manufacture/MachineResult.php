@@ -66,6 +66,7 @@ class MachineResult extends Model
     public $fillable = [
         'machine_id',
         'shiftment_id',
+        'product_id',
         'work_date',
         'amount',
         'uom_id'
@@ -80,6 +81,7 @@ class MachineResult extends Model
         'id' => 'integer',
         'machine_id' => 'integer',
         'shiftment_id' => 'integer',
+        'product_id' => 'integer',
         'work_date' => 'date',
         'amount' => 'decimal:2',
         'uom_id' => 'integer'
@@ -120,6 +122,14 @@ class MachineResult extends Model
     public function shiftment()
     {
         return $this->belongsTo(\App\Models\Base\Shiftment::class, 'shiftment_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function product()
+    {
+        return $this->belongsTo(\App\Models\Base\Product::class, 'product_id');
     }
 
     public function getWorkDateAttribute($value){

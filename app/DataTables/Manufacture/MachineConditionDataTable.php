@@ -35,15 +35,7 @@ class MachineConditionDataTable extends DataTable
                 $dataTable->filterColumn($column, new $operator($columnSearch));                
             }
         }
-        // $dataTable->editColumn('work_date', function($item){
-        //     return localFormatDate($item->work_date);
-        // })->editColumn('start', function($item){
-        //     return localFormatDateTime($item->start);
-        // })->editColumn('end', function($item){
-        //     return localFormatDateTime($item->end);
-        // })->editColumn('amount_minutes', function($item){
-        //     return localNumberFormat($item->amount_minutes, 0);
-        // });
+        
         return $dataTable->addColumn('action', 'manufacture.machine_conditions.datatables_actions');
     }
 
@@ -55,7 +47,7 @@ class MachineConditionDataTable extends DataTable
      */
     public function query(MachineCondition $model)
     {
-        return $model->select([$model->getTable().'.*'])->with(['machine', 'shiftment'])->newQuery();
+        return $model->select([$model->getTable().'.*'])->with(['machine', 'shiftment', 'category'])->newQuery();
     }
 
     /**
@@ -126,6 +118,7 @@ class MachineConditionDataTable extends DataTable
         return [
             'machine_id' => new Column(['title' => __('models/machineConditions.fields.machine_id'),'name' => 'machine_id', 'data' => 'machine.name', 'searchable' => true, 'elmsearch' => 'text']),
             'shiftment_id' => new Column(['title' => __('models/machineConditions.fields.shiftment_id'),'name' => 'shiftment_id', 'data' => 'shiftment.name', 'searchable' => true, 'elmsearch' => 'text']),
+            'category_off_id' => new Column(['title' => __('models/machineConditions.fields.category_off_id'),'name' => 'category_off_id', 'data' => 'category.name', 'defaultContent' => '-','searchable' => true, 'elmsearch' => 'text']),
             'work_date' => new Column(['title' => __('models/machineConditions.fields.work_date'),'name' => 'work_date', 'data' => 'work_date', 'searchable' => true, 'elmsearch' => 'text']),
             'start' => new Column(['title' => __('models/machineConditions.fields.start'),'name' => 'start', 'data' => 'start', 'searchable' => true, 'elmsearch' => 'text']),
             'end' => new Column(['title' => __('models/machineConditions.fields.end'),'name' => 'end', 'data' => 'end', 'searchable' => true, 'elmsearch' => 'text']),

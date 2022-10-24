@@ -169,7 +169,7 @@ class MachineController extends AppBaseController
      * @return Response
      */
     private function getOptionItems(){                
-        $uom = new UomRepository(app());
+        $uom = new UomRepository();
         $uomItem = $uom->all()->groupBy('category');
         return [
             'capacityUomItems' => ['' => __('crud.option.uom_placeholder')] + $uomItem['weight']->pluck('name', 'id')->toArray(),

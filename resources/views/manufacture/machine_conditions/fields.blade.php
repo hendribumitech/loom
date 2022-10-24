@@ -14,6 +14,16 @@
 </div>
 </div>
 
+<!-- Shiftment Id Field -->
+<div class="form-group row mb-3">
+    {!! Form::label('category_off_id', __('models/machineConditions.fields.category_off_id').':', ['class' => 'col-md-3 col-form-label']) !!}
+<div class="col-md-9"> 
+    {!! Form::select('category_off_id', $categoryOffItems, null, ['class' => 'form-control select2', 'required' => 'required']) !!}
+</div>
+</div>
+
+
+
 <!-- Work Date Field -->
 <div class="form-group row mb-3">
     {!! Form::label('work_date', __('models/machineConditions.fields.work_date').':', ['class' => 'col-md-3 col-form-label']) !!}

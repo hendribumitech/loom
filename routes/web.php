@@ -34,14 +34,19 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('menus', Base\MenusController::class, ['as' => 'base']);        
 
         Route::resource('machines', Base\MachineController::class, ["as" => 'base']);
+        Route::resource('machines.machineCapacities', Base\MachineCapacityController::class, ["as" => 'base']);
         Route::resource('uoms', Base\UomController::class, ["as" => 'base']);
         Route::resource('shiftments', Base\ShiftmentController::class, ["as" => 'base']);
+        Route::resource('products', Base\ProductController::class, ["as" => 'base']);
+        Route::resource('categoryOffs', Base\CategoryOffController::class, ["as" => 'base']);
     });
 
     Route::group(['prefix' => 'manufacture'], function () {
         Route::resource('machineConditions', Manufacture\MachineConditionController::class, ["as" => 'manufacture']);
         Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);
+        Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);
         Route::resource('machineProductivities', Manufacture\MachineProductivityController::class, ["as" => 'manufacture']);
+        Route::resource('machineConditions', Manufacture\MachineConditionController::class, ["as" => 'manufacture']);
     });
     
 
@@ -67,16 +72,11 @@ Route::group(['prefix' => 'artisan'], function () {
 });
 
 
-Route::group(['prefix' => 'manufacture'], function () {
-    Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);
+Route::group(['prefix' => 'base'], function () {
+    
 });
 
 
-Route::group(['prefix' => 'manufacture'], function () {
-    Route::resource('machineConditions', Manufacture\MachineConditionController::class, ["as" => 'manufacture']);
-});
-
-
-Route::group(['prefix' => 'manufacture'], function () {
-    Route::resource('machineProductivities', Manufacture\MachineProductivityController::class, ["as" => 'manufacture']);
+Route::group(['prefix' => 'base'], function () {
+    
 });

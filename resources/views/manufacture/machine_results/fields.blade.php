@@ -14,6 +14,15 @@
 </div>
 </div>
 
+<!-- Product Id Field -->
+<div class="form-group row mb-3">
+    {!! Form::label('product_id', __('models/machineResults.fields.product_id').':', ['class' => 'col-md-3 col-form-label']) !!}
+<div class="col-md-9"> 
+    {!! Form::select('product_id', $productItems, null, ['class' => 'form-control select2', 'required' => 'required']) !!}
+</div>
+</div>
+
+
 <!-- Work Date Field -->
 <div class="form-group row mb-3">
     {!! Form::label('work_date', __('models/machineResults.fields.work_date').':', ['class' => 'col-md-3 col-form-label']) !!}
@@ -26,7 +35,7 @@
 <div class="form-group row mb-3">
     {!! Form::label('amount', __('models/machineResults.fields.amount').':', ['class' => 'col-md-3 col-form-label']) !!}
 <div class="col-md-9"> 
-    {!! Form::text('amount', null, ['class' => 'form-control inputmask', 'required' => 'required', 'data-optionmask' => json_encode(config('local.number.decimal')) ]) !!}
+    {!! Form::text('amount', null, ['class' => 'form-control inputmask', 'required' => 'required', 'data-unmask' => 1, 'data-optionmask' => json_encode(config('local.number.decimal')) ]) !!}
 </div>
 </div>
 

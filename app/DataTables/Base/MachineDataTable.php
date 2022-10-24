@@ -36,7 +36,7 @@ class MachineDataTable extends DataTable
             }
         }
         $dataTable->editColumn('capacity', function($item){
-            return localNumberFormat($item->capacity).' ' .$item->capacityUom->name.' / '.$item->periodUom->name;
+            return $item->capacity.' ' .$item->capacityUom->name.' / '.$item->periodUom->name;
         });
         return $dataTable->addColumn('action', 'base.machines.datatables_actions');
     }

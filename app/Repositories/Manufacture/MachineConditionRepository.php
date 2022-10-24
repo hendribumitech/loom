@@ -78,14 +78,18 @@ class MachineConditionRepository extends BaseRepository
      */
     public function update($input, $id)
     {
-        $query = $this->model->newQuery();
-
-        $model = $query->findOrFail($id);
-
-        $model->fill($input);
-
-        $model->save();
-
-        return $model;
+        $this->model->getConnection()->beginTransaction();
+        try {
+            $input['amount_minutes'] = Carbon::parse($input['end'])->diffInMinutes(Carbon::parse($input['start']));
+            $query = $this->model->newQuery();
+            $model = $query->findOrFail($id);
+            $model->fill($input);
+            $model->save();
+            $this->model->getConnection()->commit();
+            return $model;
+        } catch (\Exception $e) {
+            $this->model->getConnection()->rollBack();
+            return $e;
+        }
     }
 }

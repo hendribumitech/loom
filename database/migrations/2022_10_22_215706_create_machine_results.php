@@ -27,6 +27,7 @@ class CreateMachineResults extends Migration
             $table->foreign('uom_id','fk_machine_results_1')->references('id')->on('uoms')->delete('cascade')->update('cascade');
             $table->foreign('machine_id','fk_machine_results_2')->references('id')->on('machines')->delete('cascade')->update('cascade');
             $table->foreign('shiftment_id','fk_machine_results_3')->references('id')->on('shiftments')->delete('cascade')->update('cascade');
+            
         });
     }
 

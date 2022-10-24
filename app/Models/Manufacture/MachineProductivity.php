@@ -144,4 +144,16 @@ class MachineProductivity extends Model
     {
         return $this->belongsTo(\App\Models\Base\Uom::class, 'capacity_uom_id');
     }
+
+    public function getWorkDateAttribute($value){
+        return localFormatDate($value);
+    }
+
+    public function getAmountTargetAttribute($value){
+        return localNumberFormat($value, 2);
+    }
+
+    public function getAmountResultAttribute($value){
+        return localNumberFormat($value, 2);
+    }
 }

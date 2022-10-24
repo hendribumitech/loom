@@ -35,6 +35,9 @@ class MachineResultDataTable extends DataTable
                 $dataTable->filterColumn($column, new $operator($columnSearch));                
             }
         }
+        $dataTable->editColumn('work_date', function($item){
+            return localFormatDate($item->work_date);
+        });
         return $dataTable->addColumn('action', 'manufacture.machine_results.datatables_actions');
     }
 
@@ -46,7 +49,7 @@ class MachineResultDataTable extends DataTable
      */
     public function query(MachineResult $model)
     {
-        return $model->select([$model->getTable().'.*'])->newQuery();
+        return $model->select([$model->getTable().'.*'])->with(['shiftment', 'machine','uom', 'product'])->newQuery();
     }
 
     /**
@@ -115,11 +118,12 @@ class MachineResultDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'machine_id' => new Column(['title' => __('models/machineResults.fields.machine_id'),'name' => 'machine_id', 'data' => 'machine_id', 'searchable' => true, 'elmsearch' => 'text']),
-            'shiftment_id' => new Column(['title' => __('models/machineResults.fields.shiftment_id'),'name' => 'shiftment_id', 'data' => 'shiftment_id', 'searchable' => true, 'elmsearch' => 'text']),
+            'machine_id' => new Column(['title' => __('models/machineResults.fields.machine_id'),'name' => 'machine_id', 'data' => 'machine.name', 'searchable' => true, 'elmsearch' => 'text']),
+            'shiftment_id' => new Column(['title' => __('models/machineResults.fields.shiftment_id'),'name' => 'shiftment_id', 'data' => 'shiftment.name', 'searchable' => true, 'elmsearch' => 'text']),
+            'product_id' => new Column(['title' => __('models/machineResults.fields.product_id'),'name' => 'product_id', 'data' => 'product.name', 'defaultContent' => '-', 'searchable' => true, 'elmsearch' => 'text']),
             'work_date' => new Column(['title' => __('models/machineResults.fields.work_date'),'name' => 'work_date', 'data' => 'work_date', 'searchable' => true, 'elmsearch' => 'text']),
             'amount' => new Column(['title' => __('models/machineResults.fields.amount'),'name' => 'amount', 'data' => 'amount', 'searchable' => true, 'elmsearch' => 'text']),
-            'uom_id' => new Column(['title' => __('models/machineResults.fields.uom_id'),'name' => 'uom_id', 'data' => 'uom_id', 'searchable' => true, 'elmsearch' => 'text'])
+            'uom_id' => new Column(['title' => __('models/machineResults.fields.uom_id'),'name' => 'uom_id', 'data' => 'uom.name', 'searchable' => true, 'elmsearch' => 'text'])
         ];
     }
 

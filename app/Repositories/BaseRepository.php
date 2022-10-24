@@ -157,6 +157,7 @@ abstract class BaseRepository
             $model->save();
             return $model;
         } catch (\Exception $e) {
+            \Log::error($e);
             return $e;
         }        
     }

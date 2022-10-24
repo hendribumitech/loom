@@ -151,4 +151,8 @@ class Machine extends Model
     {
         return $this->hasMany(\App\Models\Base\MachineRole::class, 'machine_id');
     }
+
+    public function getCapacityAttribute($value){
+        return localNumberFormat($value, 2);
+    }
 }
