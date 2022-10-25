@@ -11,6 +11,8 @@ use App\Repositories\Base\UomRepository;
 use App\Repositories\Base\ProductRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Base\Machine;
+use App\Repositories\Base\MachineRepository;
 use Response;
 use Exception;
 
@@ -32,7 +34,8 @@ class MachineCapacityController extends AppBaseController
      */
     public function index(int $machine, MachineCapacityDataTable $machineCapacityDataTable)
     {
-        return $machineCapacityDataTable->setMachineId($machine)->render('base.machine_capacities.index', ['machine' => $machine]);
+        $machineItem = (new MachineRepository())->find($machine);
+        return $machineCapacityDataTable->setMachineId($machine)->render('base.machine_capacities.index', ['machine' => $machine, 'title' => $machineItem->name ]);
     }
 
     /**
@@ -42,7 +45,7 @@ class MachineCapacityController extends AppBaseController
      */
     public function create(int $machine)
     {
-        return view('base.machine_capacities.create')->with($this->getOptionItems())->with(['machine' => $machine]);
+        return view('base.machine_capacities.create')->with($this->getOptionItems($machine))->with(['machine' => $machine]);
     }
 
     /**
@@ -55,7 +58,7 @@ class MachineCapacityController extends AppBaseController
     public function store(int $machine, CreateMachineCapacityRequest $request)
     {
         $input = $request->all();
-
+        $input['machine_id'] = $machine;
         $machineCapacity = $this->getRepositoryObj()->create($input);
         if($machineCapacity instanceof Exception){
             return redirect()->back()->withInput()->withErrors(['error', $machineCapacity->getMessage()]);
@@ -103,7 +106,7 @@ class MachineCapacityController extends AppBaseController
             return redirect(route('base.machines.machineCapacities.index', $machine));
         }
         
-        return view('base.machine_capacities.edit')->with('machineCapacity', $machineCapacity)->with($this->getOptionItems());
+        return view('base.machine_capacities.edit')->with('machineCapacity', $machineCapacity)->with('machine', $machine)->with($this->getOptionItems($machine));
     }
 
     /**
@@ -123,7 +126,7 @@ class MachineCapacityController extends AppBaseController
 
             return redirect(route('base.machines.machineCapacities.index', $machine));
         }
-
+        $request->merge(['machine_id' => $machine]);
         $machineCapacity = $this->getRepositoryObj()->update($request->all(), $id);
         if($machineCapacity instanceof Exception){
             return redirect()->back()->withInput()->withErrors(['error', $machineCapacity->getMessage()]);
@@ -169,14 +172,17 @@ class MachineCapacityController extends AppBaseController
      *
      * @return Response
      */
-    private function getOptionItems(){        
+    private function getOptionItems(int $machine){        
+        $machineItem = Machine::find($machine);
         $uom = new UomRepository();
-        $uom = new UomRepository();
+        $uomItem = $uom->all()->filter(function($item) use ($machineItem) {
+            return in_array($item->id, [$machineItem->capacity_uom_id, $machineItem->period_uom_id]);
+        })->groupBy('category');
         $product = new ProductRepository();
         return [
-            'uomItems' => ['' => __('crud.option.uom_placeholder')] + $uom->pluck(),
-            'uomItems' => ['' => __('crud.option.uom_placeholder')] + $uom->pluck(),
-            'productItems' => ['' => __('crud.option.product_placeholder')] + $product->pluck()            
+            'capacityUomItems' => ['' => __('crud.option.uom_placeholder')] + $uomItem['weight']->pluck('name', 'id')->toArray(),
+            'periodUomItems' => ['' => __('crud.option.uom_placeholder')] + $uomItem['duration']->pluck('name', 'id')->toArray(),
+            'productItems' => ['' => __('crud.option.product_placeholder')] + $product->pluck()
         ];
     }
 }

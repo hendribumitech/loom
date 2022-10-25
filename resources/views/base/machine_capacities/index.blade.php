@@ -14,7 +14,7 @@
                      <div class="card">
                          <div class="card-header">
                              <i class="fa fa-align-justify"></i>
-                             @lang('models/machineCapacities.plural')
+                             @lang('models/machineCapacities.plural') {{ $title }}
                              <a class="pull-right" href="{{ route('base.machines.machineCapacities.create', $machine) }}"><i class="fa fa-plus-square fa-lg"></i></a>
                          </div>
                          <div class="card-body">                             

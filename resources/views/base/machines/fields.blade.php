@@ -21,7 +21,7 @@
     {!! Form::label('capacity', __('models/machines.fields.capacity').':', ['class' => 'col-md-3 col-form-label']) !!}
     <div class="col-md-9">
         <div class="input-group">
-            {!! Form::text('capacity', null, ['class' => 'form-control inputmask', 'required' => 'required',
+            {!! Form::text('capacity', null, ['class' => 'form-control inputmask','data-unmask' => 1, 'required' => 'required',
             'data-optionmask' => json_encode( config('local.number.decimal'))]) !!}
             {!! Form::select('capacity_uom_id', $capacityUomItems, null, ['class' => 'form-control', 'required'
             => 'required']) !!}
@@ -29,7 +29,6 @@
             {!! Form::select('period_uom_id', $periodUomItems, null, ['class' => 'form-control', 'required' =>
             'required']) !!}
         </div>
-
     </div>
 </div>
 

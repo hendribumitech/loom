@@ -4,7 +4,7 @@
     @push('breadcrumb')
         <ol class="breadcrumb  my-0 ms-2">
           <li class="breadcrumb-item">
-             <a href="{!! route('base.machines.machineCapacities.index') !!}">@lang('models/machineCapacities.singular')</a>
+             <a href="{!! route('base.machines.machineCapacities.index', $machine) !!}">@lang('models/machineCapacities.singular')</a>
           </li>
           <li class="breadcrumb-item active">@lang('crud.edit')</li>
         </ol>
@@ -14,7 +14,7 @@
              @include('common.errors')
              <div class="row">
                  <div class="col-lg-12">
-                    {!! Form::model($machineCapacity, ['route' => ['base.machines.machineCapacities.update', $machineCapacity->id], 'method' => 'patch']) !!}  
+                    {!! Form::model($machineCapacity, ['route' => ['base.machines.machineCapacities.update', [$machine, $machineCapacity->id]], 'method' => 'patch']) !!}  
                       <div class="card">                          
                           <div class="card-header">
                               <i class="fa fa-edit fa-lg"></i>
@@ -30,7 +30,7 @@
                           <!-- Submit Field -->
                             <div class="form-group col-sm-12">
                                 {!! Form::submit(__('crud.save'), ['class' => 'btn btn-primary']) !!}
-                                <a href="{{ route('base.machines.machineCapacities.index') }}" class="btn btn-default">@lang('crud.cancel')</a>
+                                <a href="{{ route('base.machines.machineCapacities.index', $machine) }}" class="btn btn-default">@lang('crud.cancel')</a>
                             </div>
                           </div>                            
                       </div>                    

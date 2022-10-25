@@ -91,7 +91,7 @@ class MachineCapacity extends Model
      * @var array
      */
     public static $rules = [
-        'machine_id' => 'required',
+        // 'machine_id' => 'required',
         'product_id' => 'required',
         'capacity' => 'required|numeric',
         'capacity_uom_id' => 'required',
@@ -120,5 +120,9 @@ class MachineCapacity extends Model
     public function product()
     {
         return $this->belongsTo(\App\Models\Base\Product::class, 'product_id');
+    }
+
+    public function getCapacityAttribute($value){
+        return localNumberFormat($value,2);
     }
 }
