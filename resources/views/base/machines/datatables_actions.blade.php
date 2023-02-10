@@ -1,7 +1,7 @@
 {!! Form::open(['route' => ['base.machines.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('base.machines.show', $id) }}" class='btn btn-ghost-success'>
-       <i class="fa fa-eye"></i>
+    <a href="{{ route('base.machines.machineCapacities.index', $id) }}" class='btn btn-ghost-success'>
+       <i class="fa fa-book"></i>
     </a>
     <a href="{{ route('base.machines.edit', $id) }}" class='btn btn-ghost-info'>
        <i class="fa fa-edit"></i>

@@ -18,8 +18,10 @@ class MachineConditionResource extends JsonResource
             'id' => $this->id,
             'machine_id' => $this->machine_id,
             'shiftment_id' => $this->shiftment_id,
+            'work_date' => $this->work_date,
             'start' => $this->start,
             'end' => $this->end,
+            'amount_minutes' => $this->amount_minutes,
             'description' => $this->description
         ];
     }

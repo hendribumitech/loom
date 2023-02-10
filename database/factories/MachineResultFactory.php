@@ -23,6 +23,8 @@ class MachineResultFactory extends Factory
     {
         return [
             'machine_id' => $this->faker->word,
+        'shiftment_id' => $this->faker->word,
+        'work_date' => $this->faker->date('Y-m-d'),
         'amount' => $this->faker->numberBetween(0, 9223372036854775807),
         'uom_id' => $this->faker->word
         ];

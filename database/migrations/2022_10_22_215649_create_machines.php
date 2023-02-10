@@ -20,10 +20,11 @@ class CreateMachines extends Migration
             $table->decimal('capacity', 15, 2, true);
             $table->unsignedBigInteger('capacity_uom_id');
             $table->unsignedBigInteger('period_uom_id')->comment('dalam satuan jam, hari atau lainnya');
-            $table->string('description', 100)->nullable();
-            $table->string('types', 15)->comment('tipe uom, misalkan berat, luas, satuan dll');
+            $table->string('description', 100)->nullable();            
             $table->softDeletes();
             $table->timestamps();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('capacity_uom_id','fk_machines_1')->references('id')->on('uoms')->delete('cascade')->update('cascade');
             $table->foreign('period_uom_id','fk_machines_2')->references('id')->on('uoms')->delete('cascade')->update('cascade');
         });

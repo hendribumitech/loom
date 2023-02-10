@@ -14,6 +14,14 @@
     </div>
 </div>
 
+<!-- Work Date Field -->
+<div class="form-group row mb-3">
+    {!! Form::label('work_date', __('models/machineConditions.fields.work_date').':', ['class' => 'col-md-3 col-form-label']) !!}
+    <div class="col-md-9">
+        <p>{{ $machineCondition->work_date }}</p>
+    </div>
+</div>
+
 <!-- Start Field -->
 <div class="form-group row mb-3">
     {!! Form::label('start', __('models/machineConditions.fields.start').':', ['class' => 'col-md-3 col-form-label']) !!}
@@ -27,6 +35,14 @@
     {!! Form::label('end', __('models/machineConditions.fields.end').':', ['class' => 'col-md-3 col-form-label']) !!}
     <div class="col-md-9">
         <p>{{ $machineCondition->end }}</p>
+    </div>
+</div>
+
+<!-- Amount Minutes Field -->
+<div class="form-group row mb-3">
+    {!! Form::label('amount_minutes', __('models/machineConditions.fields.amount_minutes').':', ['class' => 'col-md-3 col-form-label']) !!}
+    <div class="col-md-9">
+        <p>{{ $machineCondition->amount_minutes }}</p>
     </div>
 </div>
 

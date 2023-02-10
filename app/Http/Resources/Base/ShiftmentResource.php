@@ -17,7 +17,10 @@ class ShiftmentResource extends JsonResource
         return [
             'id' => $this->id,
             'code' => $this->code,
-            'name' => $this->name
+            'name' => $this->name,
+            'start_hour' => $this->start_hour,
+            'end_hour' => $this->end_hour,
+            'overday' => $this->overday
         ];
     }
 }

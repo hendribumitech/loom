@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @SWG\Definition(
  *      definition="Machine",
- *      required={"code", "name", "capacity", "capacity_uom_id", "period_uom_id", "types"},
+ *      required={"code", "name", "capacity", "capacity_uom_id", "period_uom_id"},
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -48,11 +48,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          property="description",
  *          description="description",
  *          type="string"
- *      ),
- *      @SWG\Property(
- *          property="types",
- *          description="tipe uom, misalkan berat, luas, satuan dll",
- *          type="string"
  *      )
  * )
  */
@@ -77,8 +72,7 @@ class Machine extends Model
         'capacity',
         'capacity_uom_id',
         'period_uom_id',
-        'description',
-        'types'
+        'description',        
     ];
 
     /**
@@ -93,8 +87,7 @@ class Machine extends Model
         'capacity' => 'decimal:2',
         'capacity_uom_id' => 'integer',
         'period_uom_id' => 'integer',
-        'description' => 'string',
-        'types' => 'string'
+        'description' => 'string'
     ];
 
     /**
@@ -108,8 +101,7 @@ class Machine extends Model
         'capacity' => 'required|numeric',
         'capacity_uom_id' => 'required',
         'period_uom_id' => 'required',
-        'description' => 'nullable|string|max:100',
-        'types' => 'required|string|max:15'
+        'description' => 'nullable|string|max:100'
     ];
 
     /**
@@ -139,6 +131,14 @@ class Machine extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
+    public function machineProductivities()
+    {
+        return $this->hasMany(\App\Models\Base\MachineProductivity::class, 'machine_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     **/
     public function machineResults()
     {
         return $this->hasMany(\App\Models\Base\MachineResult::class, 'machine_id');
@@ -150,5 +150,9 @@ class Machine extends Model
     public function machineRoles()
     {
         return $this->hasMany(\App\Models\Base\MachineRole::class, 'machine_id');
+    }
+
+    public function getCapacityAttribute($value){
+        return localNumberFormat($value, 2);
     }
 }

@@ -11,6 +11,8 @@ use App\Repositories\Base\UomRepository;
 use App\Repositories\Base\MachineRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Base\Product;
+use App\Repositories\Base\ProductRepository;
 use Response;
 use Exception;
 
@@ -170,11 +172,17 @@ class MachineResultController extends AppBaseController
      * @return Response
      */
     private function getOptionItems(){        
-        $uom = new UomRepository(app());
-        $machine = new MachineRepository(app());
+        $uom = new UomRepository();
+        $machine = new MachineRepository();
+        $product = new ProductRepository();
+        $machineData = $machine->all([], null, null, ['id', 'capacity_uom_id', 'code'])->keyBy('id');
+        $shiftment = new ShiftmentRepository();
         return [
             'uomItems' => ['' => __('crud.option.uom_placeholder')] + $uom->pluck(),
-            'machineItems' => ['' => __('crud.option.machine_placeholder')] + $machine->pluck()            
+            'machineItems' => ['' => __('crud.option.machine_placeholder')] + $machine->pluck(),
+            'productItems' => ['' => __('crud.option.machine_placeholder')] + $product->pluck(),
+            'shiftmentItems' => ['' => __('crud.option.shiftment_placeholder')] + $shiftment->pluck(),
+            'machineData' => $machineData->toArray()
         ];
     }
 }

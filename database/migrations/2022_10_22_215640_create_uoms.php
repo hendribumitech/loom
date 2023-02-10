@@ -22,6 +22,8 @@ class CreateUoms extends Migration
             $table->decimal('ratio', 15, 6, true);
             $table->softDeletes();            
             $table->timestamps();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->unique('code','category');
         });
     }

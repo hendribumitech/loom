@@ -10,6 +10,7 @@ use App\Repositories\Base\MachineRepository;
 use App\Repositories\Base\ShiftmentRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\Base\CategoryOffRepository;
 use Response;
 use Exception;
 
@@ -169,11 +170,13 @@ class MachineConditionController extends AppBaseController
      * @return Response
      */
     private function getOptionItems(){        
-        $machine = new MachineRepository(app());
-        $shiftment = new ShiftmentRepository(app());
+        $machine = new MachineRepository();
+        $shiftment = new ShiftmentRepository();
+        $categoryOff = new CategoryOffRepository();
         return [
             'machineItems' => ['' => __('crud.option.machine_placeholder')] + $machine->pluck(),
-            'shiftmentItems' => ['' => __('crud.option.shiftment_placeholder')] + $shiftment->pluck()            
+            'shiftmentItems' => ['' => __('crud.option.shiftment_placeholder')] + $shiftment->pluck(),
+            'categoryOffItems' => ['' => __('crud.option.shiftment_placeholder')] + $categoryOff->pluck()            
         ];
     }
 }

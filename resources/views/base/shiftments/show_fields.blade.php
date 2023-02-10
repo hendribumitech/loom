@@ -14,3 +14,27 @@
     </div>
 </div>
 
+<!-- Start Hour Field -->
+<div class="form-group row mb-3">
+    {!! Form::label('start_hour', __('models/shiftments.fields.start_hour').':', ['class' => 'col-md-3 col-form-label']) !!}
+    <div class="col-md-9">
+        <p>{{ $shiftment->start_hour }}</p>
+    </div>
+</div>
+
+<!-- End Hour Field -->
+<div class="form-group row mb-3">
+    {!! Form::label('end_hour', __('models/shiftments.fields.end_hour').':', ['class' => 'col-md-3 col-form-label']) !!}
+    <div class="col-md-9">
+        <p>{{ $shiftment->end_hour }}</p>
+    </div>
+</div>
+
+<!-- Overday Field -->
+<div class="form-group row mb-3">
+    {!! Form::label('overday', __('models/shiftments.fields.overday').':', ['class' => 'col-md-3 col-form-label']) !!}
+    <div class="col-md-9">
+        <p>{{ $shiftment->overday }}</p>
+    </div>
+</div>
+

@@ -109,6 +109,10 @@
     },
     {
         "type": "relation",
+        "relation": "1tm,MachineProductivity,machine_id"
+    },
+    {
+        "type": "relation",
         "relation": "1tm,MachineResult,machine_id"
     },
     {

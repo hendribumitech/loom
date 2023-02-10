@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 /**
  * Class ShiftmentRepository
  * @package App\Repositories\Base
- * @version October 22, 2022, 10:34 pm WIB
+ * @version October 24, 2022, 10:18 am WIB
 */
 
 class ShiftmentRepository extends BaseRepository
@@ -18,7 +18,10 @@ class ShiftmentRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'code',
-        'name'
+        'name',
+        'start_hour',
+        'end_hour',
+        'overday'
     ];
 
     /**

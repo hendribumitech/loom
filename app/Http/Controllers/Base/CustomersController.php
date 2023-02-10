@@ -158,7 +158,7 @@ class CustomersController extends AppBaseController
      * @return Response
      */
     private function getOptionItems(){        
-        $user = new UserRepository(app());
+        $user = new UserRepository();
         return [
             'userItems' => ['' => __('crud.option.user_placeholder')] + $user->pluck()            
         ];
