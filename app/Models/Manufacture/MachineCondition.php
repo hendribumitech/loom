@@ -91,7 +91,7 @@ class MachineCondition extends Model
      **/
     public function machine()
     {
-        return $this->belongsTo(\App\Models\Manufacture\Machine::class, 'machine_id');
+        return $this->belongsTo(\App\Models\Base\Machine::class, 'machine_id');
     }
 
     /**
@@ -99,6 +99,6 @@ class MachineCondition extends Model
      **/
     public function shiftment()
     {
-        return $this->belongsTo(\App\Models\Manufacture\Shiftment::class, 'shiftment_id');
+        return $this->belongsTo(\App\Models\Base\Shiftment::class, 'shiftment_id');
     }
 }

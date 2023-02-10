@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Manufacture;
 
 use App\DataTables\Manufacture\MachineConditionDataTable;
-use App\Http\Requests\Manufacture;
 use App\Http\Requests\Manufacture\CreateMachineConditionRequest;
 use App\Http\Requests\Manufacture\UpdateMachineConditionRequest;
 use App\Repositories\Manufacture\MachineConditionRepository;
-use App\Repositories\Manufacture\MachineRepository;
-use App\Repositories\Manufacture\ShiftmentRepository;
+use App\Repositories\Base\MachineRepository;
+use App\Repositories\Base\ShiftmentRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;

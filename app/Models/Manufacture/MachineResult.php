@@ -93,6 +93,6 @@ class MachineResult extends Model
      **/
     public function machine()
     {
-        return $this->belongsTo(\App\Models\Manufacture\Machine::class, 'machine_id');
+        return $this->belongsTo(\App\Models\Base\Machine::class, 'machine_id');
     }
 }
