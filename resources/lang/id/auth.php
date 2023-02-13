@@ -22,7 +22,8 @@ return [
         'import' => 'Import',
         'print' => 'Cetak',
         'reset' => 'Reset',
-        'reload' => 'Refresh'
+        'reload' => 'Refresh',
+        'generate' => 'Generate'
     ]
 
 ];

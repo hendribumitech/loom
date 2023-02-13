@@ -13,7 +13,12 @@ try {
   window.$ = window.jQuery = require('jquery')
   window.moment = require('moment')
   window.toastr = require('toastr')
-  window.bootbox = require('bootbox')  
+  window.bootbox = require('bootbox')
+  // window.calendar = require('@fullcalendar/core')
+  // window.dayGridPlugin = require('@fullcalendar/daygrid')  
+  // window.timeGridPlugin = require('@fullcalendar/timegrid')
+  // window.listPlugin = require('@fullcalendar/list')
+
   require('bootstrap')
   window.coreui = require('@coreui/coreui')
   require('@coreui/icons')
@@ -33,8 +38,10 @@ window.$.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     error: function (x, status, error) {
-            bootbox.alert("An error occurred: " + status + "nError: " + error+ " status code "+x.status);            
-        }
+      if(x.status != 0){
+        bootbox.alert("An error occurred: " + status + "nError: " + error+ " status code "+x.status);            
+      }            
+    }
 });
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

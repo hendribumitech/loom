@@ -122,3 +122,36 @@ if (!function_exists('generateMenu')) {
         });
     }
 }
+
+if (!function_exists('generatePeriodFromString')) {
+    function generatePeriodFromString($value, $separator = ' - ')
+    {
+        $result = ['startDate' => null, 'endDate' => null];
+        try {
+            $tmp = explode($separator, $value);            
+            $result['startDate'] = createLocalFormatDate($tmp[0]);
+            $result['endDate'] = createLocalFormatDate($tmp[1]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        
+        return $result;
+    }
+}
+
+if (!function_exists('generatePeriod')) {
+    function generatePeriod($value, $separator = '__')
+    {
+        $result = ['startDate' => null, 'endDate' => null];
+        try {
+            $tmp = explode($separator, $value);
+            $result['startDate'] = $tmp[0];
+            $result['endDate'] = $tmp[1];
+        } catch (\Throwable $th) {
+            \Log::error('function generatePeriod');
+            throw $th;
+        }
+        
+        return $result;
+    }
+}

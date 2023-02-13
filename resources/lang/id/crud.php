@@ -14,6 +14,7 @@ return [
     */
 
     'save' => 'Simpan',
+    'generate' => 'Generate',
     'edit' => 'Edit',
     'sync' => 'Sinkron',
     'detail' => 'Detail',

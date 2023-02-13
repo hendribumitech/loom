@@ -28,7 +28,7 @@ class CreateMachineProductivity extends Migration
             $table->softDeletes();
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();            
+            $table->unsignedBigInteger('updated_by')->nullable();
         });
     }
 

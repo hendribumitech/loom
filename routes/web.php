@@ -43,10 +43,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'manufacture'], function () {
         Route::resource('machineConditions', Manufacture\MachineConditionController::class, ["as" => 'manufacture']);
-        Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);
-        Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);
-        Route::resource('machineProductivities', Manufacture\MachineProductivityController::class, ["as" => 'manufacture']);
-        Route::resource('machineConditions', Manufacture\MachineConditionController::class, ["as" => 'manufacture']);
+        Route::resource('machineResults', Manufacture\MachineResultController::class, ["as" => 'manufacture']);        
+        Route::resource('machineProductivities', Manufacture\MachineProductivityController::class, ["as" => 'manufacture']);        
+        Route::get('machineAvailabilities/resume', [App\Http\Controllers\Manufacture\ResumeMachineAvailabilityController::class, 'index'])->name('manufacture.machineAvailabilities.resume');
+        Route::get('machineAvailabilities/generate', [App\Http\Controllers\Manufacture\ResumeMachineAvailabilityController::class, 'generate'])->name('manufacture.machineAvailabilities.generate');
+        Route::resource('machineAvailabilities', Manufacture\MachineAvailabilityController::class, ["as" => 'manufacture']);
+        
     });
     
 
@@ -71,12 +73,3 @@ Route::group(['prefix' => 'artisan'], function () {
     });     
 });
 
-
-Route::group(['prefix' => 'base'], function () {
-    
-});
-
-
-Route::group(['prefix' => 'base'], function () {
-    
-});

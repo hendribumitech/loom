@@ -65,3 +65,8 @@ Route::group(['prefix' => 'base'], function () {
 Route::group(['prefix' => 'base'], function () {
     Route::resource('machine_capacities', App\Http\Controllers\API\Base\Base\MachineCapacityAPIController::class);
 });
+
+
+Route::group(['prefix' => 'manufacture'], function () {
+    Route::resource('machine_availabilities', App\Http\Controllers\API\Manufacture\Manufacture\MachineAvailabilityAPIController::class);
+});

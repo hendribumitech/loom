@@ -483,7 +483,7 @@ class Main {
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,listWeek'
         },
-        html: true,
+        // html: true,
         /*
             dayRender: function(date, cell) {
 
@@ -495,13 +495,26 @@ class Main {
                     }
                 }
         }, */
-        eventRender: function(event, element) {
-          if (!_.isEmpty(event.className)) {
-            // $day = $date.getDate();
-            const title = element.find('.fc-title')
-            title.html(title.text())
-            $("td.fc-day[data-date='" + event.start.format('YYYY-MM-DD') + "']").addClass(event.className.join(' '))
-          }
+        // eventRender: function(event, element) {
+        //   if (!_.isEmpty(event.className)) {
+        //     // $day = $date.getDate();
+        //     const title = element.find('.fc-title')
+        //     title.html(title.text())
+        //     $("td.fc-day[data-date='" + event.start.format('YYYY-MM-DD') + "']").addClass(event.className.join(' '))
+        //   }
+        // }
+        eventContent: function(arg) {          
+          let divEl = document.createElement('div')
+          divEl.innerHTML = arg.event.title 
+          // if (arg.event.extendedProps.isHTML) {
+          //   italicEl.innerHTML = 'urgent<br>event'
+          // } else {
+          //   italicEl.innerHTML = 'normal<br>event'
+          // }
+
+        
+          let arrayOfDomNodes = [ divEl ]
+          return { domNodes: arrayOfDomNodes }
         }
       }
       const _optionCalendar = $(this).data('optioncalendar') || {}
@@ -748,6 +761,17 @@ class Main {
         _tr.remove();
         if (_callback !== undefined) {
             _callback();
+        }
+    }
+
+    select2AllOption(elm, ref){        
+        if($(elm).is(':checked')){
+            $(`${ref} > option`).prop("selected", "selected");
+            $(ref).trigger("change");
+        }else{
+            let _formgroup = $(ref).closest('.form-group');
+            _formgroup.find('button.select2-selection__clear').click();
+            $(ref).trigger("change");
         }
     }
 }
