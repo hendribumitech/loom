@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Manufacture;
 
+use App\Models\Manufacture\MachineAvailability;
 use App\Models\Manufacture\MachineCondition;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
@@ -59,13 +60,14 @@ class MachineConditionRepository extends BaseRepository
             $input['amount_minutes'] = Carbon::parse($input['end'])->diffInMinutes(Carbon::parse($input['start']));
             $model = $this->model->newInstance($input);
             $model->save();
+            // add duration off to machine availability
+            $this->updateDurationOffAvailabilty($model->machine_id, $model->shiftment_id, $model->getRawOriginal('work_date')->format('Y-m-d'), minuteToHour($input['amount_minutes']));            
             $this->model->getConnection()->commit();
             return $model;
         } catch (\Exception $e) {
             $this->model->getConnection()->rollBack();
             return $e;
-        }
-        
+        }        
     }   
 
     /**
@@ -83,13 +85,33 @@ class MachineConditionRepository extends BaseRepository
             $input['amount_minutes'] = Carbon::parse($input['end'])->diffInMinutes(Carbon::parse($input['start']));
             $query = $this->model->newQuery();
             $model = $query->findOrFail($id);
+            $oldModel = clone $model; 
+            \Log::error($oldModel->toArray());           
             $model->fill($input);
             $model->save();
+            // add duration off to machine availability
+            $amountMinute = $input['amount_minutes'];
+            $this->updateDurationOffAvailabilty($oldModel->machine_id, $oldModel->shiftment_id, $oldModel->getRawOriginal('work_date'), minuteToHour(-1 * $amountMinute));
+            $this->updateDurationOffAvailabilty($model->machine_id, $model->shiftment_id, $model->getRawOriginal('work_date'), minuteToHour($amountMinute));
             $this->model->getConnection()->commit();
             return $model;
         } catch (\Exception $e) {
             $this->model->getConnection()->rollBack();
             return $e;
+        }
+    }
+
+    private function updateDurationOffAvailabilty($machineId, $shiftmentId, $workDate, $amount){
+        // add duration off to machine availability
+        $machineAvailability = MachineAvailability::where(['machine_id' => $machineId, 'work_date' => $workDate, 'shiftment_id' => $shiftmentId])->first();
+        if($machineAvailability){
+            $durationOff = $machineAvailability->getRawOriginal('duration_off');
+            $newDurationOff = $durationOff + $amount;
+            if($newDurationOff < 0){
+                $newDurationOff = 0;
+            }
+            $machineAvailability->duration_off =  $newDurationOff;
+            $machineAvailability->save();
         }
     }
 }

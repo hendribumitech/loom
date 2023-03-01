@@ -4,6 +4,7 @@ namespace App\Repositories\Manufacture;
 
 use App\Models\Base\Uom;
 use App\Models\Manufacture\MachineAvailability;
+use App\Models\Manufacture\MachineCondition;
 use App\Repositories\Base\ShiftmentRepository;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
@@ -54,11 +55,17 @@ class MachineAvailabilityRepository extends BaseRepository
         $defaultAvailability = $this->generateDefaultAvailability($startDate, $endDate);
         
         $this->model->getConnection()->beginTransaction();
-
+        $machineOffResume = $this->getMachineOff($machines, $startDate, $endDate);
         try {
             foreach($machines as $machine){
                 foreach($defaultAvailability as &$dataMachine){
                     $dataMachine['machine_id'] = $machine;
+                    /** duration_off in hours */
+                    $key = implode('_',[$machine, $dataMachine['work_date']->format('Y-m-d'), $dataMachine['shiftment_id']]);
+                    $resumeMachineOff = $machineOffResume->get($key);
+                    $dataMachine['duration_off'] = $resumeMachineOff ? $machineOffResume->get($key)->sum(function($item){
+                        return minuteToHour($item->getRawOriginal('amount_minutes'));
+                    }) : 0;
                 }
                 MachineAvailability::upsert($defaultAvailability, ['machine_id', 'shiftment_id', 'work_date']);
             }
@@ -112,5 +119,16 @@ class MachineAvailabilityRepository extends BaseRepository
         return $query->get()->groupBy(['work_date' => function($item){
             return $item->getRawOriginal('work_date');
         }]);
+    }
+
+    private function getMachineOff($machines, $startDate, $endDate){
+        $off = MachineCondition::whereIn('machine_id', $machines)
+                ->whereBetween('work_date', [$startDate, $endDate])
+                ->get()
+                ->groupBy(function($item){
+                    $key = implode('_',[$item->machine_id, $item->getRawOriginal('work_date'), $item->getRawOriginal('shiftment_id')]);
+                    return $key;
+                });        
+        return $off;
     }
 }

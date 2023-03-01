@@ -19,6 +19,7 @@ class MachineAvailabilityDataTable extends DataTable
     private $columnFilterOperator = [
         'machine_id' => \App\DataTables\FilterClass\InKeyword::class,
         'shiftment_id' => \App\DataTables\FilterClass\InKeyword::class,
+        'work_date' => \App\DataTables\FilterClass\BetweenKeyword::class
     ];
     
     private $mapColumnSearch = [
@@ -139,7 +140,7 @@ FUNC
         return [
             'machine_id' => new Column(['title' => __('models/machineAvailabilities.fields.machine_id'),'name' => 'machine_id', 'data' => 'machine.name', 'searchable' => true, 'elmsearch' => 'dropdown', 'listItem' => $machineItems, 'multiple' => 'multiple']),
             'shiftment_id' => new Column(['title' => __('models/machineAvailabilities.fields.shiftment_id'),'name' => 'shiftment_id', 'data' => 'shiftment.name', 'searchable' => true, 'elmsearch' => 'dropdown', 'listItem' => $shiftmentItems, 'multiple' => 'multiple']),
-            'work_date' => new Column(['title' => __('models/machineAvailabilities.fields.work_date'),'name' => 'work_date', 'data' => 'work_date', 'searchable' => true, 'elmsearch' => 'text']),
+            'work_date' => new Column(['title' => __('models/machineAvailabilities.fields.work_date'),'name' => 'work_date', 'data' => 'work_date', 'searchable' => true, 'elmsearch' => 'daterange']),
             'duration_target' => new Column(['title' => __('models/machineAvailabilities.fields.duration_target'),'name' => 'duration_target', 'data' => 'duration_target', 'searchable' => false, 'elmsearch' => 'text', 'class' => 'text-end']),
             'duration_off' => new Column(['title' => __('models/machineAvailabilities.fields.duration_off'),'name' => 'duration_off', 'data' => 'duration_off', 'searchable' => false, 'elmsearch' => 'text', 'class' => 'text-end']),
             'uom_id' => new Column(['title' => __('models/machineAvailabilities.fields.uom_id'),'name' => 'uom_id', 'data' => 'uom.name', 'searchable' => false, 'elmsearch' => 'text'])

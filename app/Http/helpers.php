@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Jenssegers\Date\Date;
 use Spatie\Menu\Laravel\Html;
 use Spatie\Menu\Laravel\Link;
@@ -153,5 +154,22 @@ if (!function_exists('generatePeriod')) {
         }
         
         return $result;
+    }
+}
+
+if (!function_exists('diffMinute')) {
+    function diffMinute($start, $end)
+    {
+        // hitung sampai menit saja
+        $startMinute = substr($start,0,-3);
+        $endMinute = substr($end,0,-3);
+        return Carbon::parse($startMinute)->diffInMinutes($endMinute);
+    }
+}
+
+if (!function_exists('minuteToHour')) {
+    function minuteToHour($minutes)
+    {
+        return $minutes / 60;
     }
 }
