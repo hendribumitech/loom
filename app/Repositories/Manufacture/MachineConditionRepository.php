@@ -61,7 +61,7 @@ class MachineConditionRepository extends BaseRepository
             $model = $this->model->newInstance($input);
             $model->save();
             // add duration off to machine availability
-            $this->updateDurationOffAvailabilty($model->machine_id, $model->shiftment_id, $model->getRawOriginal('work_date')->format('Y-m-d'), minuteToHour($input['amount_minutes']));            
+            $this->updateDurationOffAvailabilty($model->machine_id, $model->shiftment_id, $model->getRawOriginal('work_date'), minuteToHour($input['amount_minutes']));            
             $this->model->getConnection()->commit();
             return $model;
         } catch (\Exception $e) {
